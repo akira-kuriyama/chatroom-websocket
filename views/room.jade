@@ -1,0 +1,73 @@
+div.container
+	div.hero-unit
+		a.titleLink(href="/")
+			h1= title
+			p test version
+	div.loginUsers.alert-message.block-message.warning
+		p
+			strong ログインユーザ :
+			span #{username}
+			
+	div.chatDiv
+		table.chatTable
+			tr
+				th なまえ 
+				th 
+			tr
+	div.chatArea
+		form
+			input.xlarge.chatText(name="chat", type="text")
+			input.btn.primary.chatBtn(type="submit", value="はつげん")
+
+	
+script(type='text/javascript')
+	var user =  '#{username}';
+	var sockt;
+	$(function(){
+		
+		socket = io.connect();
+		socket.emit('login', user);
+		socket.on('res',function(from, msg) {
+			console.log('res# from=' + from + ', msg=' + msg);
+			displayChat(from, msg);
+		});
+		socket.on('updateLoginUsers', function(users){
+			console.log('updateLoginUsers# users=' + users);
+			updateLoginUsers(users)
+		});
+		$('form').submit(function(e){
+			chat();
+			return false;
+		});
+	});
+
+
+	function updateLoginUsers (users) {
+		console.log(users);
+		$('div.loginUsers p span').remove();
+
+		for (var i in users) {
+			$('div.loginUsers p').append($('<span>').text(users[i]));
+		}
+	}
+	function chat() {
+		var msg = $('input.chatText').val();
+		$('input.chatText').val('').focus();
+		socket.emit('chat', user, msg);
+		$('div.chatDiv').animate({ scrollTop: 2000000 }, 'fast');
+		return false;
+	}
+
+
+
+	function displayChat(from, msg) {
+		console.log('chat: from=' + from + ', msg=' + msg);
+		var nameDom = $('<p>').addClass('name').text(from + ' : ');
+		var trDom = $('<tr>');
+		trDom.append($('<td>').addClass('nameTd').append(nameDom));
+		var chatDom = $('<p>').addClass('chat').text(msg);
+		trDom.append($('<td>').addClass('chatTd').append(chatDom));
+		$('table.chatTable').append(trDom);        	
+		
+	}
+

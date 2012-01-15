@@ -1,0 +1,58 @@
+div.hero-unit {
+  height: 50px;
+}
+p.name {
+  color: #00b7fd;
+  width: 100%;
+}
+div.hero-unit p {
+  color: Sienna;
+}
+a.titleLink:hover {
+  text-decoration: none;
+}
+div.center {
+  text-align: center;
+}
+input.enterBtn {
+  margin-top: 40px;
+}
+div.chatArea {
+  text-align: center;
+  margin-top: 30px;
+}
+input.chatText,
+input.chatBtn {
+  margin-left: 10px;
+}
+input.username {
+  margin-left: 20px;
+}
+table.chatTable {
+  margin: auto;
+  width: 60%;
+  border-bottom: 1px solid #ddd;
+}
+td.nameTd {
+  width: 25%;
+}
+td.chatTd {
+  width: 75%;
+}
+p.chat {
+  text-align: left;
+}
+div.loginUsers {
+  margin: auto auto 30px;
+  width: 80%;
+}
+div.loginUsers span {
+  margin-left: 15px;
+  background-color: Khaki;
+  border-radius: 5px 5px 5px 5px;
+  padding: 4px 7px;
+}
+div.chatDiv {
+  max-height: 400px;
+  overflow: auto;
+}
